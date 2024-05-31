@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.corpoRelatorios {
+    background-image: url(../../image/fundo.jpg);
+    background-size: cover;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.tituloRelatorio {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.formRelatorio {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.btnGerar {
+    color: white;
+    cursor: pointer;
+    width: 250px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(0, 0, 248);
+}
+.relatorio {
+    width: 90%;
+    margin-left: 5%;
+    background-color: transparent;
+    backdrop-filter: blur(4px);
+}
+.btnPDF {
+    text-align: center;
+    width: 250px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: rgb(0, 0, 248);
+    margin-bottom: 10px;
+}
+.headerRelatorio {
+    background-color: rgba(0, 3, 3, 0.384);
+    width: 98%;
+    margin-left: 1%;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.dadosRelatorio {
+    margin-top: 10px;
+    width: 98%;
+    margin-left: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(37, 36, 36);
+}
+.dadosRelatorio p {
+    font-size: 25px;
+    color: white;
+}

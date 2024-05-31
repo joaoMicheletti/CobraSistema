@@ -1,0 +1,24 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+.homeHeader {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    background-color: rgba(0, 3, 3, 0.281);
+}
+.homeHeader nav {
+    width: 90%;
+    margin-left: 5%;
+}
+.homeHeader nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.homeHeader nav ul li {
+    list-style: none;
+    margin-top: 10px;
+}

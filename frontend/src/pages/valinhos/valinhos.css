@@ -1,0 +1,45 @@
+.valinhosCad {
+    height: 100vh;
+    background-image: url(../../image/fundo.jpg);
+    background-size: cover;
+    height: 100vh;
+}
+.valinho {
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    margin-top: 150px;
+    background-color: rgba(0, 0, 0, 0.356);
+    width: 80%;
+    margin-left: 10%;
+}
+.pValinho {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.valinho div {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.inpValinho {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}
+.btnValinho {
+    color: white;
+    font-size: 15px;
+    font-weight: 900;
+    width: 250px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: rgb(0, 0, 248);
+}
