@@ -43,7 +43,8 @@ import Api from '../../services/api.js';
             Api.post('/valinhos', Data).then((Response) => {
                 console.log(Response)
                 if(Response.status === 200){
-                    alert("Cadastrado!")
+                    alert("Cadastrado!");
+                    window.location.reload(true);
                 }
             }).catch((erro) =>{
                 alert('Erro ao cadastrar Valinho!')

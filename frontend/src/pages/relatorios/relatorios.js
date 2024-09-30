@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import Api from '../../services/api.js';
 import './relatorios.css';
 import HeaderComponent from "../componentes/header/header.js";
+import jsPDF from 'jspdf';
+import Logo from '../../image/cobraLogo.jpeg';
 
 export default function Relatorios(){
     const [relatorio, setRelatorio] = useState([]);
@@ -38,11 +40,46 @@ export default function Relatorios(){
                 mes, 
                 ano,
             };
+            console.log(Data)
             await Api.post('/relatorio', Data).then((Response) => {
                 setRelatorio(Response.data);
             }).catch((erro) =>{
                 alert('Erro ao gerar o relatório');
             });
+        };
+        console.log(relatorio)
+    };
+    async function Pdf(){
+        var Data = new Date();
+        var total = 0
+        var doc = new jsPDF('p', 'pt');
+        var img = new Image();
+        img.src = Logo;
+
+        img.onload = function(){
+            var width = 100;
+            var heigth = (width* img.height) / img.width;
+            doc.addImage(img, "PNG", 450, 10, width, heigth);
+
+            doc.text(20, 30, `Relatório: ${periodo}`);
+            doc.text(20, 55, `Empresa: ${nome}`);
+            doc.text(20, 80, `Quantidade de valinhos: ${relatorio.length}`);
+            var y = 160;
+
+            relatorio.forEach((valinho) => {
+                total += valinho.volume;
+                doc.text(`${valinho.dia}/${valinho.mes}/${valinho.ano} - Volume: ${valinho.volume}m³ - Placa: ${valinho.placa} - OS: ${valinho.os}`,
+                    20, y
+                ); y += 30;               
+            });
+            doc.text(20, 105, `Volume total: ${total}m³`);
+            doc.text(20, 130, `Relatório gerado por: "Cobra d'água transportes"`);
+            doc.text(20, 140, `---------------------------------------------------------------------------------------------------------     "`);
+            var dia = Data.getDate();
+            var mes = Data.getMonth() + 1;
+            var ano = Data.getFullYear()
+            var NomePdf = nome+"-"+dia+"/"+mes+"/"+ano;
+            doc.save(`${NomePdf}.pdf`);
         };
     };
     return(
@@ -56,9 +93,9 @@ export default function Relatorios(){
                         <select className="selectPeriodo" onChange={(e) => setPeriodo(e.target.value)}>
                             <option value='Selecionar um Período'>Selecione um Período</option>
                             <option value='Diário'>Diário</option>
-                            <option value='Quinzena'>Quinzena</option>
+                            <option value='Quinzenal'>Quinzenal</option>
                             <option value='Mensal'>Mensal</option>
-                            <option value='Anoal'>Anoal</option>
+                            <option value='Anoal'>Anual</option>
                         </select>
                     </label>
                     <label className="select">
@@ -80,19 +117,24 @@ export default function Relatorios(){
                 </div>
                 <br/>
                 <div className="relatorio">
-                    <button className="btnPDF" >Gerar PDF</button>
+                    <button className="btnPDF" onClick={Pdf} >Gerar PDF</button>
                     <div className="headerRelatorio">
-                        <p>Data</p>
-                        <p>Volume</p>
-                        <p>Valor</p>
                         <p>Empresa</p>
+                        <p>Motorista</p>
+                        <p>Data</p>
+                        <p>Quantidade</p>
+                        <p>N° Vale</p>
                     </div>
                     {relatorio.map((valinho, key) => {
+                        console.log(relatorio);
                         return(
                             <div key={valinho.id} className="dadosRelatorio">
-                                <p> Data: {valinho.dia}/{valinho.mes}/{valinho.ano}</p>
-                                <p>Volume: {valinho.volume}³</p>
-                                <p>Empresa: {valinho.nome}</p>
+                                <p>{valinho.nome}</p>
+                                <p>{valinho.motorista}</p>
+                                <p>{valinho.dia}/{valinho.mes}/{valinho.ano}</p>
+                                <p>{valinho.volume}³</p>
+                                <p>{valinho.os}</p>
+                                
                             </div>
                         );
                     })}

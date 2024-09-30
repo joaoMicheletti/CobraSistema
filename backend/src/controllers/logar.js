@@ -15,12 +15,11 @@ module.exports = {
     },
     async Register(request, response){
         const {adm, pass} = request.body;
+        
         var token = crypto.randomBytes(10).toString('HEX'); //<<<<<
-        console.log(token); //<<<<<
+        console.log(token. adm, pass); //<<<<<
         var Data = {adm, pass, token};
         await connect('user').insert(Data);
-        
-        
         return response.json('Cadastrado!');
     }
 }

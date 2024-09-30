@@ -12,7 +12,7 @@ module.exports = {
             .where('ano', ano)
             .select('*');
             return response.json(resp);
-        } else if(periodo === 'Quinzena'){
+        } else if(periodo === 'Quinzenal'){
             if(dia === 1){
                 var resp = await connect('valinhos')
                 .where('nome', nome)
