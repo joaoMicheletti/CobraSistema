@@ -15,6 +15,8 @@ import Api from '../../services/api.js';
     useEffect(() =>{
         Api.get('/empresa').then((Response) =>{
             setLista(Response.data);
+            console.log(lista)
+
         }).catch((erro) => {
             alert('erro interno')
         })
@@ -43,9 +45,14 @@ import Api from '../../services/api.js';
             Api.post('/valinhos', Data).then((Response) => {
                 console.log(Response)
                 if(Response.status === 200){
-                    alert("Cadastrado!");
-                    window.location.reload(true);
-                }
+                    if(Response.data === 'Valinho já cadastrado'){
+                        alert(Response.data);
+                    }
+                    else{
+                        alert("Cadastrado!");
+                        window.location.reload(true);
+                    };
+                };
             }).catch((erro) =>{
                 alert('Erro ao cadastrar Valinho!')
             });
@@ -61,7 +68,7 @@ import Api from '../../services/api.js';
                 <div className='rasVolume'>
                     <label>
                         Razão social : 
-                        <select className='inpValinho' onChange={(e) => setNome(e.target.value)}>
+                        <select onLoad={this} className='inpValinho' onChange={(e) => setNome(e.target.value)}>
                             {lista.map((empresa, kei) =>{
                                 return(
                                     <option key={empresa.id} value={empresa.nome}>{empresa.nome}</option>
