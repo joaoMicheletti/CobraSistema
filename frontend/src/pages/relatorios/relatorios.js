@@ -49,39 +49,53 @@ export default function Relatorios(){
         };
         console.log(relatorio)
     };
-    async function Pdf(){
+    async function Pdf() {
         var Data = new Date();
-        var total = 0
+        var total = 0;
         var doc = new jsPDF('p', 'pt');
         var img = new Image();
         img.src = Logo;
-
-        img.onload = function(){
+    
+        // Ordena os dados por dia, mês e ano
+        console.log(relatorio)
+        const relatorioOrdenado = relatorio.sort();
+    
+        img.onload = function () {
             var width = 100;
-            var heigth = (width* img.height) / img.width;
-            doc.addImage(img, "PNG", 450, 10, width, heigth);
-
+            var height = (width * img.height) / img.width;
+            doc.addImage(img, "PNG", 450, 10, width, height);
+    
             doc.text(20, 30, `Relatório: ${periodo}`);
             doc.text(20, 55, `Empresa: ${nome}`);
             doc.text(20, 80, `Quantidade de valinhos: ${relatorio.length}`);
+    
             var y = 160;
-
-            relatorio.forEach((valinho) => {
+    
+            // Gera o conteúdo do PDF com os dados ordenados
+            relatorioOrdenado.forEach((valinho) => {
                 total += valinho.volume;
-                doc.text(`${valinho.dia}/${valinho.mes}/${valinho.ano} - Volume: ${valinho.volume}m³ - Placa: ${valinho.placa} - OS: ${valinho.os}`,
+                doc.text(
+                    `${valinho.dia}/${valinho.mes}/${valinho.ano} - Volume: ${valinho.volume}m³ - Placa: ${valinho.placa} - OS: ${valinho.os}`,
                     20, y
-                ); y += 30;               
+                );
+                y += 30;
             });
+    
             doc.text(20, 105, `Volume total: ${total}m³`);
             doc.text(20, 130, `Relatório gerado por: "Cobra d'água transportes"`);
-            doc.text(20, 140, `---------------------------------------------------------------------------------------------------------     "`);
+            doc.text(20, 140, `---------------------------------------------------------------------------------------------------------`);
+    
+            // Define o nome do arquivo PDF com a data atual
             var dia = Data.getDate();
             var mes = Data.getMonth() + 1;
-            var ano = Data.getFullYear()
-            var NomePdf = nome+"-"+dia+"/"+mes+"/"+ano;
+            var ano = Data.getFullYear();
+            var NomePdf = `${nome}-${dia}/${mes}/${ano}`;
+    
             doc.save(`${NomePdf}.pdf`);
         };
-    };
+    }
+    
+    
     return(
         <>
             <div className="corpoRelatorios">
